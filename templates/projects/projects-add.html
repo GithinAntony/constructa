@@ -1,0 +1,187 @@
+{% extends 'layout.html' %}
+{% block title %}
+Constructa
+{% endblock %}
+{% load static %}
+<!-- custom css -->
+{% block css %}
+{% endblock %}
+<!-- custom css end-->
+{% block content %}
+<section id="main-container" class="main-container">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-12">
+        <h2 class="section-title">{{ request.session.user_type }}</h2>
+        <h3 class="section-sub-title">Add Projects</h3>
+      </div>
+    </div>
+    <!--/ Title row end -->
+    <div class="row">
+        <div class="col-md-12 text-center">
+            {% if messages %}
+            <ul class="messages text-center">
+            {% for message in messages %}
+             <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+             {% endfor %}
+             </ul>
+             {% endif %}
+        </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12" style="padding: 10px; padding-right: 20px;">
+              <a href="{% url 'projects:chat_message' msg_id=msg_id %}" role="button" class="btn btn-sm btn-danger float-right" >Go Back</a>
+            </div>
+        </div> 
+
+    <div class="row">
+      <div class="col-md-12">
+        <form action="" id="myform1" method="post" role="form">
+          {% csrf_token %}
+          <div class="error-container"></div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="title">Title</label>
+                <input class="form-control" name="title" id="title" placeholder="" type="text" value="">
+              </div>
+            </div>
+          </div>     
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="description">Description</label>
+                <textarea class="form-control" name="description" id="description" rows="3"></textarea>
+              </div>
+            </div>
+          </div>
+          <!--
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="client">Client</label>
+                <input class="form-control" name="client" id="client" placeholder="" type="text" value="">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="architect">Architect</label>
+                <input class="form-control" name="architect" id="architect" placeholder="" type="text" value="">
+              </div>
+            </div>
+          </div>
+            -->
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="location">Location</label>
+                <input class="form-control" name="location" id="location" placeholder="" type="text" value="">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="size">Size (Square Feet)</label>
+                <input class="form-control" name="size" id="size" placeholder="" type="text" value="">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="year_completed">Estimated Start Date</label>
+                <input class="form-control" name="start_date" id="start_date" placeholder="" type="date" value="">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="categories">Estimated End Date</label>
+                <input class="form-control" name="end_date" id="end_date" placeholder="" type="date" value="">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="categories">Project Category</label>
+                <select class="form-control" name="categories_choices" id="categories_choices">
+                  {% for key, value in categories_choices %}
+                    <option value="{{ key }}">{{ value }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+          </div>
+                 
+          <div class="text-right border-top">
+            <button class="btn btn-primary solid blank" type="submit">Save</button>
+          </div>
+        </form>
+      </div>
+
+    </div><!-- Content row -->
+  </div><!-- Conatiner end -->
+</section><!-- Main container end -->
+{% endblock %}
+<!-- custom js -->
+{% block js %}
+<script src="{% static 'plugins/jquery-validate/jquery.validate.min.js' %}" defer></script>
+<script src="{% static 'plugins/jquery-validate/additional-methods.min.js' %}" defer></script>
+<script src="{% static 'plugins/datatables/datatables.min.js' %}"></script>
+<script>
+$(document).ready(function () {
+   $('#example').DataTable();
+});  
+  $(document).ready(function(){
+  $( "#myform1" ).validate({
+   ignore: [],
+    rules: {
+        title: {
+        required: true,
+        minlength: 3
+      },
+      description: {
+        required: true,
+        minlength: 10
+      },
+      location: {
+        required: true,
+        minlength: 3
+      },
+      size: {
+        required: true,
+        minlength: 3,
+        digits: true    
+      },
+      start_date: {
+        required: true,
+        minlength: 4,
+        maxlength: 10,
+      },
+      end_date: {
+        required: true,
+        minlength: 4,
+        maxlength: 10,
+      },
+      categories: {
+        required: true,
+        minlength: 3
+      }
+    }
+  });
+
+  $( "#myform2" ).validate({
+    ignore: [],
+    rules: {
+    profile_photo: {
+			required: true,
+			extension:'png,jpg,jpeg',
+		}, 
+  } 
+  });  
+
+  });
+  </script>
+{% endblock %}
+<!-- custom js end-->

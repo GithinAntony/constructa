@@ -1,0 +1,83 @@
+{% extends 'layout.html' %}
+{% block title %}
+Constructa
+{% endblock %}
+{% load static %}
+<!-- custom css -->
+{% block css %}
+{% endblock %}
+<!-- custom css end-->
+{% block content %}
+<section id="main-container" class="main-container">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-12">
+        <h2 class="section-title">Contractors</h2>
+        <h3 class="section-sub-title">Sign In</h3>
+      </div>
+    </div>
+    <!--/ Title row end -->
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <form action="" id="myform" method="post" role="form">
+          {% csrf_token %}
+          {% if messages %}
+          <ul class="messages text-center">
+          {% for message in messages %}
+           <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+           {% endfor %}
+           </ul>
+           {% endif %}
+          <div class="error-container"></div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Mobile Number</label>
+                <input class="form-control form-control-name" name="mobile_number" id="mobile_number" placeholder="" type="text">
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Password</label>
+                <input class="form-control form-control-email" name="password" id="password" placeholder="" type="password">
+              </div>
+            </div>
+          </div>
+
+          <div class="text-right border-top">
+            <a class="custom-link-1" href="{% url 'contractors:sign_up' %}"><i class="fa fa-caret-right"></i> Not registered, Sign up here... </a>
+            <button class="btn btn-primary solid blank" type="submit">Sign In</button>
+          </div>
+        </form>
+      </div>
+
+    </div><!-- Content row -->
+  </div><!-- Conatiner end -->
+</section><!-- Main container end -->
+{% endblock %}
+<!-- custom js -->
+{% block js %}
+<script src="{% static 'plugins/jquery-validate/jquery.validate.min.js' %}" defer></script>
+<script src="{% static 'plugins/jquery-validate/additional-methods.min.js' %}" defer></script>
+<script>
+$(document).ready(function(){
+$( "#myform" ).validate({
+ ignore: [],
+  rules: {
+    mobile_number: {
+      required: true,
+      digits: true,
+      minlength: 10,
+      maxlength: 10,
+    },
+    password: {
+      required: true,
+      minlength: 5,
+      maxlength: 30,
+    },
+  }
+});
+});
+</script>
+{% endblock %}
+<!-- custom js end-->

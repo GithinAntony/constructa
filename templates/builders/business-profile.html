@@ -1,0 +1,139 @@
+{% extends 'layout.html' %}
+{% block title %}
+Constructa
+{% endblock %}
+{% load static %}
+<!-- custom css -->
+{% block css %}
+{% endblock %}
+<!-- custom css end-->
+{% block content %}
+{% if userdata.business_banner_photo %}
+<div id="banner-area" class="banner-area" style="background-image:url({{ userdata.business_banner_photo.url }})">
+{% else %}
+<div id="banner-area" class="banner-area" style="background-image:url({% static 'images/placeholder-banner.png' %})"></div>
+{% endif %}
+    <div class="banner-text">
+      <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+            </div><!-- Col end -->
+          </div><!-- Row end -->
+      </div><!-- Container end -->
+    </div><!-- Banner text end -->
+  </div><!-- Banner area end --> 
+  
+  <section id="main-container" class="main-container">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-xl-12">
+                   
+            <div class="call-to-action classic">
+              <div class="row align-items-center">
+                <div class="col-md-8 text-center text-md-left">
+                  <div class="call-to-action-text">
+                    <h3 class="action-title">Update your profile here...</h3>
+                  </div>
+                </div><!-- Col end -->
+                <div class="col-md-4 text-center text-md-right mt-3 mt-md-0">
+                  <div class="call-to-action-btn">
+                    <a class="btn btn-primary" href="{% url 'builders:business_profile_edit' %}">Edit Profile</a>
+                  </div>
+                </div><!-- col end -->
+              </div><!-- row end -->
+            </div><!-- Action end -->
+            <div class="gap-40"></div>
+        </div>
+        
+        <div class="col-xl-3 col-lg-4">
+          <div class="sidebar sidebar-left">
+            <div class="widget">
+              <h3 class="widget-title">Solutions</h3>
+              <ul class="nav service-menu">
+                {% if business_solution_list %}
+                {% for row in business_solution_list %}
+                <li class="active"><a href="">{{ row }}</a></li>
+                {% endfor %}
+                {% endif %}
+              </ul>
+            </div><!-- Widget end -->
+  
+            <div class="widget">
+              <div class="quote-item quote-border">
+                <!--
+                <div class="quote-text-border">
+                  Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
+                </div>
+                -->
+                <div class="quote-text-border">
+                  <b>Contact Person</b>
+                </div>
+                <div class="quote-item-footer">
+                  <img loading="lazy" class="testimonial-thumb" src="{{ userdata.profile_photo.url }}" alt="testimonial">
+                  <div class="quote-item-info">
+                    <h3 class="quote-author">{{ userdata.first_name|default:"" }} {{ userdata.last_name|default:"" }}</h3>
+                    <span class="quote-subtext">{{ userdata.email_address|default:"" }}</span>
+                  </div>
+                </div>
+
+              </div><!-- Quote item end -->
+  
+            </div><!-- Widget end -->
+  
+          </div><!-- Sidebar end -->
+        </div><!-- Sidebar Col end -->
+  
+        <div class="col-xl-8 col-lg-8">
+          <div class="content-inner-page">
+            <h2 class="column-title mrt-0">{{ userdata.business_title|default:" ____" }}</h2>
+            <div class="row">
+              <div class="col-md-12">
+                {{ userdata.business_description|default:" ____" }}
+              </div><!-- col end -->
+            </div><!-- 1st row end-->
+            <div class="gap-40"></div>
+            {% if userdata_image %}
+            <div id="page-slider" class="page-slider">
+              {% for row in userdata_image %}
+                  <div class="item">
+                    <img loading="lazy" class="img-fluid" src="{{ row.image.url }}" alt="project-slider-image" />
+                  </div>
+              {% endfor %}  
+            </div><!-- Page slider end -->
+            {% else %}               
+            {% endif %}
+            <div class="gap-40"></div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <h3 class="column-title-small">Where to find us</h3>  
+
+                <ul class="list-arrow">
+                  <li><b><u>ADDRESS</u></b><br />
+                    <p>
+                    {{ userdata.business_address_line_1|default:" ____" }}, <br />
+                    {% if userdata.business_address_line_2 %}
+                    {{ userdata.business_address_line_2|default:" ____" }}, <br />
+                    {% endif %} 
+                    {{ userdata.business_district|default:" ____" }},  <br />
+                    {{ userdata.business_state|default:" ____" }}, <br />
+                    Pin: {{ userdata.business_pin_code|default:" ____" }} <br />
+                  </p></li>
+                  <li><b><u>EMAIL:</u></b> {{ userdata.business_email_address|default:" ____" }}</li>
+                  <li><b><u>MOBILE:</u></b> +91 {{ userdata.business_mobile_number|default:" ____" }}</li>
+                </ul>
+              </div>
+            </div>
+
+            <!--2nd row end -->
+          </div><!-- Content inner end -->
+        </div><!-- Content Col end -->
+      </div><!-- Main row end -->
+    </div><!-- Conatiner end -->
+  </section><!-- Main container end -->
+{% endblock %}
+<!-- custom js -->
+{% block js %}
+{% endblock %}
+<!-- custom js end-->

@@ -1,0 +1,203 @@
+{% extends 'layout.html' %}
+{% block title %}
+Constructa
+{% endblock %}
+{% load static %}
+<!-- custom css -->
+{% block css %}
+{% endblock %}
+<!-- custom css end-->
+{% block content %}
+<div id="banner-area" class="banner-area" style="background-image:url({% static 'images/banner/banner1.jpg' %})">
+  <div class="banner-text">
+    <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+              <div class="banner-heading">
+                <h1 class="banner-title">Faq</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                      <li class="breadcrumb-item"><a href="#">Home</a></li>
+                      <li class="breadcrumb-item"><a href="#">company</a></li>
+                      <li class="breadcrumb-item active" aria-current="page">Faq</li>
+                    </ol>
+                </nav>
+              </div>
+          </div><!-- Col end -->
+        </div><!-- Row end -->
+    </div><!-- Container end -->
+  </div><!-- Banner text end -->
+</div><!-- Banner area end --> 
+
+<section id="main-container" class="main-container">
+  <div class="container">
+
+    <div class="row">
+      <div class="col-lg-8">
+        <h3 class="border-title border-left mar-t0">Construction general</h3>
+
+        <div class="accordion accordion-group accordion-classic" id="construction-accordion">
+          <div class="card">
+            <div class="card-header p-0 bg-transparent" id="headingOne">
+              <h2 class="mb-0">
+                <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne"
+                  aria-expanded="true" aria-controls="collapseOne">
+                  Does the law require head protection on construction sites?
+                </button>
+              </h2>
+            </div>
+
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+              data-parent="#construction-accordion">
+              <div class="card-body">
+                Head protection is required on most construction sites by law. This is because head injuries are common and wearing a hard hat can significantly reduce the risk. The specific requirements for head protection may vary by country or region. It's best to consult with your local regulatory authority or safety professional for specific requirements in your area.
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header p-0 bg-transparent" id="headingTwo">
+              <h2 class="mb-0">
+                <button class="btn btn-block text-left collapsed" type="button" data-toggle="collapse"
+                  data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  What are the first aid requirements for sites?
+                </button>
+              </h2>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#construction-accordion">
+              <div class="card-body">
+                The first aid requirements for construction sites vary depending on the size and type of the site and local regulations. Common requirements include a fully stocked first aid kit, trained first aid personnel or access to emergency medical services, and awareness of the location of first aid supplies. Additional requirements may include a written first aid policy, regular training for workers, and equipment inspections.
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header p-0 bg-transparent" id="headingThree">
+              <h2 class="mb-0">
+                <button class="btn btn-block text-left collapsed" type="button" data-toggle="collapse"
+                  data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  What is an appointed person?
+                </button>
+              </h2>
+            </div>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
+              data-parent="#construction-accordion">
+              <div class="card-body">
+                Appointed person is someone who is responsible for overseeing the implementation of health and safety measures on a construction site. This person is typically appointed by the employer or contractor and must have sufficient knowledge and experience to carry out their duties effectively.
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--/ Accordion end -->
+
+        <div class="gap-40"></div>
+
+        <h3 class="border-title border-left">Safety</h3>
+
+        <div class="accordion accordion-group accordion-classic" id="safety-accordion">
+          <div class="card">
+            <div class="card-header p-0 bg-transparent" id="headingFour">
+              <h2 class="mb-0">
+                <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseFour"
+                  aria-expanded="true" aria-controls="collapseFour">
+                  What should I do if I'm injured on a construction site?
+                </button>
+              </h2>
+            </div>
+
+            <div id="collapseFour" class="collapse show" aria-labelledby="headingFour"
+              data-parent="#safety-accordion">
+              <div class="card-body">
+                If you are injured on a construction site, seek medical attention immediately. Report the incident to your supervisor and document the details of the incident, including the time, location, and cause. This will help you if you need to file a workers' compensation claim.
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header p-0 bg-transparent" id="headingFive">
+              <h2 class="mb-0">
+                <button class="btn btn-block text-left collapsed" type="button" data-toggle="collapse"
+                  data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                  What are some common construction site hazards?
+                </button>
+              </h2>
+            </div>
+            <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#safety-accordion">
+              <div class="card-body">
+                Common construction site hazards include falls from height, electrocution, struck-by incidents, and caught-in-between incidents. Other hazards include exposure to hazardous substances, noise, and extreme temperatures. It's important to be aware of these hazards and take steps to mitigate them.
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header p-0 bg-transparent" id="headingSix">
+              <h2 class="mb-0">
+                <button class="btn btn-block text-left collapsed" type="button" data-toggle="collapse"
+                  data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                  What personal protective equipment (PPE) is required on a construction site?
+                </button>
+              </h2>
+            </div>
+            <div id="collapseSix" class="collapse" aria-labelledby="headingSix"
+              data-parent="#safety-accordion">
+              <div class="card-body">
+                The PPE required on a construction site may vary depending on the specific hazards present, but common types of PPE include hard hats, safety glasses, ear plugs or muffs, high-visibility vests, gloves, and safety shoes or boots. Respirators and other specialized equipment may also be required for certain tasks. It's important to always wear the appropriate PPE for the job you're doing.
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--/ Accordion end -->
+
+      </div><!-- Col end -->
+
+      <div class="col-lg-4 mt-5 mt-lg-0">
+
+        <div class="sidebar sidebar-right">
+          <div class="widget recent-posts">
+            <h3 class="widget-title">Recent Posts</h3>
+            <ul class="list-unstyled">
+              <li class="d-flex align-items-center">
+                <div class="posts-thumb">
+                  <a href="#"><img loading="lazy" alt="news-image" src="{% static 'images/news/news1.jpg' %}"></a>
+                </div>
+                <div class="post-info">
+                  <h4 class="entry-title">
+                    <a href="#">We Just Completes $17.6 Million Medical Clinic In Mid-missouri</a>
+                  </h4>
+                </div>
+              </li><!-- 1st post end-->
+
+              <li class="d-flex align-items-center">
+                <div class="posts-thumb">
+                  <a href="#"><img loading="lazy" alt="news-img" src="{% static 'images/news/news2.jpg' %}"></a>
+                </div>
+                <div class="post-info">
+                  <h4 class="entry-title">
+                    <a href="#">Thandler Airport Water Reclamation Facility Expansion Project Named</a>
+                  </h4>
+                </div>
+              </li><!-- 2nd post end-->
+
+              <li class="d-flex align-items-center">
+                <div class="posts-thumb">
+                  <a href="#"><img loading="lazy" alt="news-img" src="{% static 'images/news/news3.jpg' %}"></a>
+                </div>
+                <div class="post-info">
+                  <h4 class="entry-title">
+                    <a href="#">Silicon Bench And Cornike Begin Construction Solar Facilities</a>
+                  </h4>
+                </div>
+              </li><!-- 3rd post end-->
+
+            </ul>
+
+          </div><!-- Recent post end -->
+        </div><!-- Sidebar end -->
+
+      </div><!-- Col end -->
+
+    </div><!-- Content row end -->
+
+  </div><!-- Container end -->
+</section><!-- Main container end -->
+{% endblock %}
+<!-- custom js -->
+{% block js %}
+{% endblock %}
+<!-- custom js end-->

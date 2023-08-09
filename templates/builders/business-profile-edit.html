@@ -1,0 +1,306 @@
+{% extends 'layout.html' %}
+{% block title %}
+Constructa
+{% endblock %}
+{% load static %}
+<!-- custom css -->
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/tagsinput.css' %}">
+{% endblock %}
+<!-- custom css end-->
+{% block content %}
+<section id="main-container" class="main-container">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-12">
+        <h2 class="section-title">Builders</h2>
+        <h3 class="section-sub-title">Edit Business Profile</h3>
+      </div>
+    </div>
+
+    <div class="row">
+    <div class="col-md-12 text-center">
+        {% if messages %}
+        <ul class="messages text-center">
+        {% for message in messages %}
+         <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+         {% endfor %}
+         </ul>
+         {% endif %}
+    </div>
+    </div>
+    <!--/ Title row end -->
+
+    <div class="row">
+        <div class="col-md-12" style="padding: 10px; padding-right: 20px;">
+          <a href="{% url 'builders:business_profile' %}" role="button" class="btn btn-sm btn-danger float-right" >Go Back</a>
+        </div>
+       </div> 
+
+    <div class="row">
+
+      <div class="col-md-6">
+        <form action="" id="myform1" method="post" role="form" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="error-container"></div>
+
+          <div class="row">
+            <div class="col-md-12">
+            {% if userdata.business_banner_photo %}
+            <img src="{{ userdata.business_banner_photo.url }}" width="100%" height="150" />
+            {% else %}
+            <img src="{% static 'images/placeholder-banner.png' %}" width="100%" height="150" />
+            {% endif %}
+            </div>
+            </div> 
+
+          <div class="row">
+            <div class="col-md-12" style="margin-top: 15px;">
+              <div class="form-group">
+                <label for="business_profile_photo">Add Banner </label>
+                <input class="form-control form-control-name" name="business_banner_photo" id="business_banner_photo" placeholder="" type="file">
+              </div>
+            </div>                    
+          </div> 
+          
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group border-top">
+                <label for="business_title">Title</label>
+                <input class="form-control" name="business_title" id="business_title" placeholder="" type="text" value="{{ userdata.business_title|default:'' }}">
+              </div>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="business_description">Description</label>
+                <textarea class="form-control" name="business_description" id="business_description" rows="3">{{ userdata.business_description|default:'' }}</textarea>
+              </div>
+            </div>
+          </div>
+          
+          
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="business_mobile_number">Mobile Number</label>
+                <input class="form-control form-control-name" name="business_mobile_number" id="business_mobile_number" placeholder="" type="text" value="{{ userdata.business_mobile_number|default:'' }}">
+              </div>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="business_email_address">Email Address</label>
+                <input class="form-control form-control-email" name="business_email_address" id="business_email_address" placeholder="" type="email" value="{{ userdata.business_email_address|default:'' }}">
+              </div>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="business_address_line_1">Address Line 1</label>
+                <input class="form-control form-control-name" name="business_address_line_1" id="business_address_line_1" placeholder="" type="text" value="{{ userdata.business_address_line_1|default:'' }}">
+              </div>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="business_address_line_2">Address Line 2</label>
+                <input class="form-control form-control-email" name="business_address_line_2" id="business_address_line_2" placeholder="" type="text" value="{{ userdata.business_address_line_2|default:'' }}">
+              </div>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="business_district">District</label>
+                <input class="form-control form-control-name" name="business_district" id="business_district" placeholder="" type="text" value="{{ userdata.business_district|default:'' }}">
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="state">State</label>
+                <input class="form-control form-control-name" name="business_state" id="business_state" placeholder="" type="text" value="{{ userdata.business_state|default:'' }}">
+              </div>
+            </div>
+          </div>
+
+        <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="pin_code">Pin Code</label>
+                <input class="form-control form-control-email" name="business_pin_code" id="pin_code" placeholder="" type="text" value="{{ userdata.business_pin_code|default:'' }}">
+              </div>
+            </div>
+          </div>
+                  
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="pin_code">Solutions</label>
+                <input type="" class="form-control form-control-email" name="business_solutions" id="business_solutions" data-role="tagsinput" value="{{ userdata.business_solution|default:'' }}" />
+              </div>
+            </div>
+          </div>
+
+          <div class="text-right border-top">
+            <button class="btn btn-primary solid blank" type="submit">Save</button>
+          </div>
+        </form>
+      </div>      
+
+      <div class="col-md-6">
+            <form action="{% url 'builders:business_profile_photos' %}" id="myform2" method="post" role="form" enctype="multipart/form-data">
+                {% csrf_token %}  
+              <div class="row">
+                  <div class="col-md-12" style="margin-top: 30px;">
+                    <div class="form-group">
+                      <label for="profile_photo">Add Sample Images </label>
+                      <input class="form-control form-control-name" name="business_profile_photo" id="business_profile_photo" placeholder="" type="file">
+                    </div>
+                  </div>          
+                </div> 
+
+                <div class="text-right border-top">
+                  <button class="btn btn-primary solid blank" type="submit">Save</button>
+                </div>
+                 <hr />
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <table class="table table-dark ">
+                            <thead>
+                              <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Image</th>
+                                <th scope="col">Actions</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                {% if userdata_image %}
+                                {% for row in userdata_image %}
+                                    <tr>
+                                        <th scope="row">{{ forloop.counter }}</th>
+                                        <td><img src="{{ row.image.url }}" class="img-thumbnail" style="height: 100px;"></td>
+                                        <td style="vertical-align: middle;">
+                                        <a href="/builders/business-profile-photos-delete/{{ row.unique_id }}" role="button" class="btn btn-danger" onclick="if(!confirm('Are you sure you want to delete this image?')){return false;}" >Delete</a>    
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr class="text-center">
+                                    <td colspan="3">No images found.</td>
+                                </tr>
+                            {% endif %}
+                            </tbody>
+                          </table>
+
+                    </div>
+                  </div>
+              </form>                
+      </div>
+
+    </div><!-- Content row -->
+  </div><!-- Conatiner end -->
+</section><!-- Main container end -->
+{% endblock %}
+<!-- custom js -->
+{% block js %}
+<script src="{% static 'plugins/jquery-validate/jquery.validate.min.js' %}" defer></script>
+<script src="{% static 'plugins/jquery-validate/additional-methods.min.js' %}" defer></script>
+<script src="{% static 'js/tagsinput.js' %}" defer></script>
+<script>
+  $(document).ready(function(){
+  $.validator.addMethod('validateTags', function(value, element) {
+  var tags = $("#business_solutions").tagsinput('items');
+  return tags.length > 0;
+}, 'Please enter at least one tag');
+       
+  $( "#myform1" ).validate({
+   ignore: [],
+    rules: {
+
+      business_banner_photo: {
+        required: false,
+        extension:'png,jpg,jpeg',
+      },
+      business_title: {
+        required: true,
+        minlength: 2,
+        maxlength: 255
+      },
+      business_description: {
+        required: true,
+        minlength: 10,
+        maxlength: 500
+      },
+      business_mobile_number: {
+        required: true,
+        digits: true,
+        minlength: 10,
+        maxlength: 10
+      },
+      business_email_address: {
+        required: true,
+        email: true
+      },
+      business_address_line_1: {
+        required: true,
+        minlength: 10,
+        maxlength: 255
+      },
+      business_address_line_2: {
+        required: false,
+        maxlength: 255
+      },
+      business_district: {
+        required: true,
+        minlength: 2,
+        maxlength: 100
+      },
+      business_state: {
+        required: true,
+        minlength: 2,
+        maxlength: 100
+      },
+      business_pin_code: {
+        required: true,
+        digits: true,
+        minlength: 6,
+        maxlength: 6
+      },
+      business_solutions: {
+        validateTags: true 
+      }
+    },
+    errorPlacement: function(error, element) {
+      error.insertAfter(element.parent());
+    }
+    
+  });
+
+  $( "#myform2" ).validate({
+    ignore: [],
+    rules: {
+    title_photos: {
+			required: true,
+			extension:'png,jpg,jpeg',
+		}, 
+  } 
+  }); 
+
+  });
+  </script>
+{% endblock %}
+<!-- custom js end-->

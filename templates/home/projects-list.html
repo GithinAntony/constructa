@@ -1,0 +1,91 @@
+{% extends 'layout.html' %}
+{% block title %}
+Constructa
+{% endblock %}
+{% load static %}
+<!-- custom css -->
+{% block css %}
+<link href="{% static 'plugins/datatables/datatables.min.css' %}" rel="stylesheet"/>
+{% endblock %}
+<!-- custom css end-->
+{% block content %}
+<section id="main-container" class="main-container">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-12">
+        <h2 class="section-title">Home</h2>
+        <h3 class="section-sub-title">Projects</h3>
+      </div>
+    </div>    
+    <!--/ Title row end -->
+    <div class="row">
+      <div class="col-md-12 text-center">
+          {% if messages %}
+          <ul class="messages text-center">
+          {% for message in messages %}
+           <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+           {% endfor %}
+           </ul>
+           {% endif %}
+      </div>
+      </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="ui container">
+          {% if userdata %}
+            <table class="table table-dark" id="example">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th>Image</th>  
+                  <th scope="col">Title</th>
+                  <th scope="col">Client</th>
+                  <th scope="col">Location</th>
+                  <th scope="col">Size</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                  {% for row in userdata %}
+                      <tr>
+                          <td scope="row">{{ forloop.counter }}</td>
+                          <td>
+                            {% if row.projects_images_conn.exists %}
+                            {% with image=row.projects_images_conn.first.image %}
+                            <img src="{{ image.url }}" width="150" height="100" />
+                            {% endwith %}
+                            {% else %}
+                            <img src="{% static 'images/placeholder-banner.png' %}" width="150" height="100" />
+                            {% endif %}                      
+                          </td>
+                          <td>{{ row.title|lower|capfirst }}</td>
+                          <td>{{ row.client }}</td>
+                          <td>{{ row.location }}</td>
+                          <td>{{ row.size }} SF</td>
+                          <td style="width: 150px;">
+                            <a href="{% url 'home:projects_single' project_id=row.unique_id %}" role="button" class="btn btn-sm btn-success" >View</a>                             
+                          </td>
+                      </tr>
+                  {% endfor %}
+              </tbody>
+            </table>
+            {% else %}
+            <p><b>No Projects found.</b></p>
+            {% endif %}
+          </div>
+      </div>
+    </div><!-- Content row -->
+  </div><!-- Conatiner end -->
+</section><!-- Main container end -->
+{% endblock %}
+<!-- custom js -->
+{% block js %}
+<script src="{% static 'plugins/datatables/datatables.min.js' %}"></script>
+<script>
+$(document).ready(function () {
+    $('#example').DataTable();
+});  
+</script>
+{% endblock %}
+<!-- custom js end-->

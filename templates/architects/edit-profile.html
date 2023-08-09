@@ -1,0 +1,282 @@
+{% extends 'layout.html' %}
+{% block title %}
+Constructa
+{% endblock %}
+{% load static %}
+<!-- custom css -->
+{% block css %}
+{% endblock %}
+<!-- custom css end-->
+{% block content %}
+<section id="main-container" class="main-container">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-12">
+        <h2 class="section-title">Architects</h2>
+        <h3 class="section-sub-title">Edit Profile</h3>
+      </div>
+    </div>
+    <!--/ Title row end -->
+    <div class="row">
+        <div class="col-md-12 text-center">
+            {% if messages %}
+            <ul class="messages text-center">
+            {% for message in messages %}
+             <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+             {% endfor %}
+             </ul>
+             {% endif %}
+      </div>
+      <div class="col-md-6">
+        <form action="{% url 'architects:edit_profile' %}" id="myform1" method="post" role="form">
+          {% csrf_token %}
+          <div class="error-container"></div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>First Name</label>
+                <input class="form-control form-control-name" name="first_name" id="first_name" placeholder="" type="text" value="{{ userdata.first_name }}">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Last Name</label>
+                <input class="form-control form-control-email" name="last_name" id="last_name" placeholder="" type="text" value="{{ userdata.last_name }}">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="mobile_number">Mobile Number</label>
+                <input class="form-control form-control-name" name="mobile_number" id="mobile_number" placeholder="" type="text" value="{{ userdata.mobile_number }}">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="email_address">Email Address</label>
+                <input class="form-control form-control-email" name="email_address" id="email_address" placeholder="" type="email" value="{{ userdata.email_address }}">
+              </div>
+            </div>
+          </div>
+        
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="address_line_1">Address Line 1</label>
+                <input class="form-control form-control-name" name="address_line_1" id="address_line_1" placeholder="" type="text" value="{{ userdata.address_line_1 }}">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="address_line_2">Address Line 2</label>
+                <input class="form-control form-control-email" name="address_line_2" id="address_line_2" placeholder="" type="text" value="{{ userdata.address_line_2 }}">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="district">District</label>
+                <input class="form-control form-control-name" name="district" id="district" placeholder="" type="text" value="{{ userdata.district }}">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="state">State</label>
+                <input class="form-control form-control-name" name="state" id="state" placeholder="" type="text" value="{{ userdata.state }}">
+              </div>
+            </div>
+          </div>
+        <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="pin_code">Pin Code</label>
+                <input class="form-control form-control-email" name="pin_code" id="pin_code" placeholder="" type="text" value="{{ userdata.pin_code }}">
+              </div>
+            </div>
+          </div>
+                 
+          <div class="text-right border-top">
+            <button class="btn btn-primary solid blank" type="submit">Save</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="col-md-6">
+        <form action="{% url 'architects:edit_profile_pic' %}" id="myform2" method="post" role="form" enctype="multipart/form-data">
+          {% csrf_token %}
+            <div class="row">
+              <div class="col-md-12">
+                <div class="text-center">
+                  <img src="{{ userdata.profile_photo.url }}"  class="img-thumbnail" style="height: 200px;" >
+                </div>
+              </div>
+            </div>
+           
+        <div class="row">
+            <div class="col-md-12" style="margin-top: 30px;">
+              <div class="form-group">
+                <label for="profile_photo">Change Profile Photo</label>
+                <input class="form-control form-control-name" name="profile_photo" id="profile_photo" placeholder="" type="file">
+              </div>
+            </div>          
+          </div> 
+          <div class="text-right border-top">
+            <button class="btn btn-primary solid blank" type="submit">Save</button>
+          </div>
+        </form>
+
+        <form action="{% url 'architects:edit_profile_password' %}" id="myform3" method="post" role="form">
+          {% csrf_token %}
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="old_password">Old Password</label>
+                  <input class="form-control form-control-name" name="old_password" id="old_password" placeholder="" type="text">
+                </div>
+              </div>
+            </div>
+        <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input class="form-control form-control-name" name="password" id="password" placeholder="" type="text">
+              </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="confirm_password">Confirm Password</label>
+                <input class="form-control form-control-name" name="confirm_password" id="confirm_password" placeholder="" type="text">
+              </div>
+            </div>
+          </div>
+          <div class="text-right border-top">
+            <button class="btn btn-primary solid blank" type="submit">Save</button>
+          </div>
+        </form>
+
+      </div>
+
+
+    </div><!-- Content row -->
+  </div><!-- Conatiner end -->
+</section><!-- Main container end -->
+{% endblock %}
+<!-- custom js -->
+{% block js %}
+<script src="{% static 'plugins/jquery-validate/jquery.validate.min.js' %}" defer></script>
+<script src="{% static 'plugins/jquery-validate/additional-methods.min.js' %}" defer></script>
+<script>
+  $(document).ready(function(){
+  $( "#myform1" ).validate({
+   ignore: [],
+    rules: {
+  first_name: {
+    required: true,
+    digits: false,
+    minlength: 2,
+    maxlength: 255
+  },
+  last_name: {
+    required: true,
+    digits: false,
+    minlength: 2,
+    maxlength: 255
+  },
+  mobile_number: {
+    required: true,
+    digits: true,
+    minlength: 10,
+    maxlength: 10,
+    /*remote: {
+        url: "",
+        type: "post",
+        data: {
+          csrfmiddlewaretoken: "{{ csrf_token }}"     
+      },
+  },*/
+},
+  email_address: {
+    required: true,
+    email: true,
+    /*remote: {
+        url: "",
+        type: "post",
+        data: {
+          csrfmiddlewaretoken: "{{ csrf_token }}"     
+      },
+      },*/
+    minlength: 8,
+    maxlength: 255
+  },
+  address_line_1: {
+    required: true,
+    minlength: 5,
+    maxlength: 255
+  },
+  address_line_2: {
+    required: false,
+    maxlength: 255
+  },
+  district: {
+    required: true,
+    minlength: 2,
+    maxlength: 255
+  },
+  state: {
+    required: true,
+    minlength: 2,
+    maxlength: 255
+  },
+  pin_code: {
+    required: true,
+    digits: true,
+    minlength: 6,
+    maxlength: 6
+  },
+    }
+  });
+
+  $( "#myform2" ).validate({
+    ignore: [],
+    rules: {
+    profile_photo: {
+			required: true,
+			extension:'png,jpg,jpeg',
+		}, 
+  } 
+  });  
+
+  $( "#myform3" ).validate({
+    ignore: [],
+    rules: {
+  password: {
+    required: true,
+    minlength: 5,
+    maxlength: 35,
+  },
+  confirm_password: {
+    required: true,
+    minlength: 5,
+    maxlength: 35,
+    equalTo: "#password"
+  },
+  }
+  });
+
+  });
+  </script>
+{% endblock %}
+<!-- custom js end-->

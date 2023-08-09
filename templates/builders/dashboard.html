@@ -1,0 +1,765 @@
+{% extends 'layout.html' %}
+{% block title %}
+Constructa
+{% endblock %}
+{% load static %}
+<!-- custom css -->
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/semantic.css' %}">
+<link rel="stylesheet" href="{% static 'css/c3.css' %}">
+<style>
+    h1.page-heading {
+      font-size: 1.8em;
+      border-bottom: 1px solid #ddd;
+      padding: 20px 0;
+      margin-bottom: 15px;
+    }
+    
+    h2.subpage-heading {
+      font-size: 1.3em;
+      color: #474747;
+      margin-top: 15px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #ddd;
+      margin-bottom: 15px
+    }
+    h2.subpage-heading small {
+      color: #999;
+      font-size: 0.7em;
+      line-height: 1em;
+      float: right;
+      margin-top: 7px;
+    }
+    
+    h2.subpage-heading.no-border {
+      border-bottom: none;
+      padding-bottom: 0px;
+    }
+    h4 {
+      margin-bottom: 5px;;
+    }
+    
+    .real-time-printing {
+      height: 200px;
+    }
+    
+    
+    .button.view-all-btn {
+      border-radius: 0;
+    }
+    
+    .device-list h3 {
+      font-size: 1em;
+      font-weight: normal;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 5px;
+      margin-bottom: 0;
+    }
+    
+    .device-list ul {
+      list-style-type: none;
+      padding: 0;
+      margin-top: 0;
+    }
+    
+    .device-list ul:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+    
+    .device-list ul li a {
+      display: block;
+      padding: 10px;
+      cursor: pointer;
+      color: #474747;
+    }
+    
+    .device-list ul li a:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+    
+    .device-list ul li a:hover {
+      background-color: #f7f7f7;
+    }
+    
+    .device-list .device-details {
+      float: left;
+      margin-right: 10px;
+      line-height: 1.2em;
+    }
+    
+    
+    .device-details .device-model {
+      font-size: 0.9em;
+    }
+    
+    .device-details .device-make {
+      font-size: 0.7em;
+      padding: 4px 6px;
+      margin: 0;
+    }
+    
+    .device-list .device-updated {
+      float: right;
+      font-size: 0.8em;
+    }
+    
+    .device-list .device-status-icon {
+      width: 50px;
+      height: 50px;
+      opacity: 0.3;
+      max-width: 50px;
+      float: left;
+      margin-right: 10px;
+    }
+    
+    .device-in-error .device-status-icon {
+      background-color: #fa5e3f;
+    }
+    
+    .device-warnings .device-status-icon {
+      background-color: #fecc41;
+    }
+    
+    .device-recently .device-status-icon {
+      background-color: #40e9bf;
+    }
+    
+    .device-in-error .device-updated {
+      color: #fa5e3f;
+    }
+    
+    .device-warnings .device-updated {
+      color: #fecc41;
+    }
+    
+    .device-recently .device-updated {
+      color: #2abb9d;
+    }
+    
+    /* Supply forecast */
+    .forecasts.ui.segment.basic {
+      margin-bottom: 60px;
+    }
+    .forecast {
+      padding-bottom: 30px;
+    }
+    .forecast:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+    .forecast h5 {
+      font-size: 0.9em;
+      font-weight: normal;
+      color: #999;
+      margin-bottom: 15px;
+    }
+    .forecast .stats {
+      font-size: 4em;
+      font-weight: 600;
+      float: left;
+      margin-right: 5px;
+      vertical-align: text-top;
+      line-height: 1em;
+      color: #009c95;
+    }
+    .forecast .stats-description {
+      font-size: 0.9em;
+      font-weight: bold;
+      line-height: 1.2em;
+      display: block;
+      padding-top: 6px;
+    }
+    
+    .toner-breakdown .ink-c {
+      background-color: #2d90cd;
+    }
+    .toner-breakdown .ink-m {
+      background-color: #eb1465;
+    }
+    .toner-breakdown .ink-y {
+      background-color: #f3cf3d;
+      color: #333;
+    }
+    .toner-breakdown .ink-k {
+      background-color: #23323f;
+    }
+    .toner-breakdown td,
+    .toner-breakdown th {
+      text-align: center;
+      border: 3px solid #fff;
+      padding: 3px 6px;
+    }
+    .toner-breakdown th {
+      background-color: #eee;
+      color: #fff;
+    }
+    .toner-breakdown td {
+      color: #666;
+    }
+    .button-group {
+      text-align: left;
+      margin-top: 10px;
+      position: absolute;
+      bottom: 0;
+    }
+    .button-group .ui.button {
+      border-radius: 0;
+    }
+    .button-group .ui.button.teal-text {
+      color: #009c95;
+    }
+    .ui.segment.basic {
+      margin-bottom: 40px;
+    }
+    
+    .ui.attached.menu:not(.tabular) {
+      border: none;
+    }
+    
+    .ui.content {
+      padding-top: 30px;
+    }
+    
+    .ui.segment {
+      padding: 0;
+      box-shadow: 2px 2px 6px #eee;
+    }
+    
+    .ui.block.header {
+      border: 0;
+      background-color: #f3f3f3;
+      margin: 0;
+      padding: 15px 20px;
+    }
+    
+    .ui.block.header h5 {
+      color: #000;
+      font-weight: 400;
+    }
+    
+    .ui.table.history {
+      font-size: 0.9em;
+    }
+    
+    .history tr > td:first-child {
+      text-align: right;
+    }
+    
+    
+    .history .completed-status {
+      font-size: 2em;
+    }
+    
+    
+    .c3 svg {
+      font-family: 'Open Sans', sans-serif;
+    }
+    
+    .c3 path,
+    .c3 line {
+      stroke: #ccc;
+    }
+    
+    .c3 .c3-axis text {
+      fill: #999;
+    }
+    
+    .c3 .c3-axis-y .tick line {
+      display: none;
+    }
+    
+    .c3-grid line {
+      stroke: #eee;
+    }
+    
+    .c3-xgrid,
+    .c3-ygrid {
+      stroke-dasharray: 0;
+    }
+    
+    .vis {
+      background-color: #fff;
+      padding: 30px;
+      min-width: 250px;
+    }
+    
+    .vis h3 {
+      color: #474747;
+      font-weight: 500;
+    }
+    
+    .c3-tooltip {
+      background-color: #f6f6f6;
+      font-size: 0.8em;
+      border-collapse: collapse;
+      border-spacing: 0;
+      empty-cells: show;
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+      box-shadow: none;
+      opacity: 0.9;
+      border: 1px solid #ccc;
+    }
+    
+    
+    .c3-tooltip tr {
+      border: none;
+      border-top: 1px solid #ccc;
+    }
+    
+    .c3-tooltip th {
+      display: none;
+    }
+    
+    .c3-tooltip td {
+      padding: 6px 12px;
+      border: none;
+    }
+    
+    .c3-tooltip td > span {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      margin-right: 6px;
+    }
+    
+    .c3-tooltip td.value {
+      text-align: right;
+    }
+    
+    @media screen and (min-width: 640px) {
+      .ui.content {
+        padding: 0 20px;
+      }
+    }
+    </style>
+{% endblock %}
+<!-- custom css end-->
+{% block content %}
+<section id="main-container" class="main-container">
+  <div class="container">
+    <!--/ Title row end -->
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="ui container">
+            <h1 class="page-heading">Dashboard</h1>
+        
+            <div class="ui equal width stackable grid">
+        
+              <div class="row">
+                <div class="sixteen wide column">
+                  <h2 class="subpage-heading no-border">Real Time Printing</h2>
+                  <div class="content">
+                    <div class="real-time-printing"></div>
+                  </div>
+                </div>
+              </div>
+        
+              <div class="row">
+                <div class="six wide column">
+                  <h2 class="subpage-heading">Device List</h2>
+                  <div class="content">
+                    <div class="device-list device-in-error">
+                      <h3>In Error</h3>
+                      <ul>
+                        <li>
+                          <a href="javascript:">
+                            <div class="device-status-icon"></div>
+                            <div class="device-details">
+                              <div class="device-location">Creative Dept</div>
+                              <div class="device-model">HP Colour LaserJet</div>
+                              <div class="device-make ui label">HP</div>
+                            </div>
+                            <div class="device-updated">
+                              <time>25m ago</time>
+                            </div>
+                          </a>
+        
+                        </li>
+                      </ul>
+                    </div>
+        
+                    <div class="device-list device-warnings">
+                      <h3>Warning</h3>
+                      <ul>
+                        <li>
+                          <a href="javascript:">
+                            <div class="device-status-icon"></div>
+                            <div class="device-details">
+                              <div class="device-location">Marketing (B/W)</div>
+                              <div class="device-model">HP OfficeJet C224</div>
+                              <div class="device-make ui label">HP</div>
+                            </div>
+                            <div class="device-updated">
+                              <time>3h ago</time>
+                            </div>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+        
+                    <div class="device-list device-recently">
+                      <h3>Recently Used</h3>
+                      <ul>
+                        <li>
+                          <a href="javascript:">
+                            <div class="device-status-icon"></div>
+                            <div class="device-details">
+                              <div class="device-location">Finance Team</div>
+                              <div class="device-model">OfficeCenter 800a</div>
+                              <div class="device-make ui label">Canon</div>
+                            </div>
+                            <div class="device-updated">
+                              <time>2m ago</time>
+                            </div>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="javascript:">
+                            <div class="device-status-icon"></div>
+                            <div class="device-details">
+                              <div class="device-location">Front Desk</div>
+                              <div class="device-model">Copywave 8003</div>
+                              <div class="device-make ui label">Ricoh</div>
+                            </div>
+                            <div class="device-updated">
+                              <time>4m ago</time>
+                            </div>
+                          </a>
+                        </li>
+        
+                        <li>
+                          <a href="javascript:">
+                            <div class="device-status-icon"></div>
+                            <div class="device-details">
+                              <div class="device-location">168.1.2.34</div>
+                              <div class="device-model">DeskJet 4500</div>
+                              <div class="device-make ui label">Konica Minolta</div>
+                            </div>
+                            <div class="device-updated">
+                              <time>6m ago</time>
+                            </div>
+                          </a>
+                        </li>
+        
+                        <li>
+                          <a href="javascript:">
+                            <div class="device-status-icon"></div>
+                            <div class="device-details">
+                              <div class="device-location">168.2.3.68</div>
+                              <div class="device-model">Colourwave Plotter</div>
+                              <div class="device-make ui label">Ricoh</div>
+                            </div>
+                            <div class="device-updated">
+                              <time>20m ago</time>
+                            </div>
+                          </a>
+                        </li>
+        
+                        <li>
+                          <a href="javascript:">
+                            <div class="device-status-icon"></div>
+                            <div class="device-details">
+                              <div class="device-location">Reception (B/W)</div>
+                              <div class="device-model">CommandCopy Terminal</div>
+                              <div class="device-make ui label">Canon</div>
+                            </div>
+                            <div class="device-updated">
+                              <time>42m ago</time>
+                            </div>
+                          </a>
+                        </li>
+        
+                        <li>
+                          <a href="javascript:">
+                            <div class="device-status-icon"></div>
+                            <div class="device-details">
+                              <div class="device-location">Testing Lab</div>
+                              <div class="device-model">HP CM45440</div>
+                              <div class="device-make ui label">Kyocera</div>
+                            </div>
+                            <div class="device-updated">
+                              <time>2h ago</time>
+                            </div>
+                          </a>
+                        </li>
+                      </ul>
+        
+                    </div>
+                    <button class="ui teal button view-all-btn" style="width: 100%">View All</button>
+                  </div>
+                </div>
+                <div class="ten wide column">
+                  <div class="forecasts ui basic segment">
+                    <h2 class="subpage-heading">Supply Forecast <small>Over the next 30 days</small></h2>
+                    <div class="ui grid">
+                      <div class="seven wide column">
+                        <h4>Paper</h4>
+                        <div class="forecast">
+                          <h5>Your projected paper usage is:</h5>
+                          <span class="stats">100</span>
+                          <span class="stats-description">boxes or reams of paper</span>
+                        </div>
+                        <div class="button-group">
+                          <button class="tiny ui button teal-text">More information</button>
+                        </div>
+        
+                      </div>
+                      <div class="nine wide column">
+                        <h4>Toner</h4>
+        
+                        <div class="forecast">
+                          <h5>Your projected toner usage is:</h5>
+                          <div class="ui stackable two column grid">
+                            <div class="column">
+                              <span class="stats">88</span>
+                              <span class="stats-description">cartridges of toner</span>
+                            </div>
+                            <div class="toner-breakdown column">
+                              <table>
+                                <thead>
+                                  <tr>
+                                    <th class="ink-c">C</th>
+                                    <th class="ink-m">M</th>
+                                    <th class="ink-y">Y</th>
+                                    <th class="ink-k">K</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td>2</td>
+                                    <td>1</td>
+                                    <td>3</td>
+                                    <td>1</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="button-group">
+                          <button class="tiny ui button teal-text ">More information</button>
+                          <button class="tiny ui blue button">Order HP</button>
+                        </div>
+        
+                      </div>
+                    </div>
+                  </div>
+        
+                  <div class="ui basic segment">
+                    <h2 class="subpage-heading">This Month</h2>
+                    <div class="content">
+                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam nulla quam, molestie id scelerisque ac, volutpat ac nulla. Donec rutrum hendrerit nulla, vitae pharetra magna faucibus vel. Fusce dapibus volutpat leo eget vulputate. Quisque sed
+                        massa viverra, aliquam neque ac, aliquet leo. Aliquam erat volutpat. Aliquam rutrum, tortor sed convallis euismod, odio lectus pharetra turpis, nec lacinia purus arcu non velit. Praesent a purus magna. Vestibulum luctus ex in maximus ullamcorper.</p>
+                    </div>
+                  </div>
+        
+                  <div class="ui basic segment">
+                    <h2 class="subpage-heading" style="margin-bottom: 0">Recent Jobs</h2>
+                    <div class="content">
+                      <table class="ui basic table history" style="border: none;">
+                        <tbody>
+                          <tr>
+                            <td class="completed-when">1 min ago</td>
+                            <td class="completed-status"><i class="circle icon teal"></i></td>
+                            <td class="completed-who">Chris Dance</td>
+                            <td class="completed-copies">
+                              <span>2 copies</span>
+                            </td>
+                            <td class="completed-pages">
+                              <span>289 pages</span>
+                            </td>
+                            <td class="completed-location-device">
+                              <span>Library</span> |
+                              <span>HP Laser 5690M</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="completed-when">1 min ago</td>
+                            <td class="completed-status"><i class="circle icon teal"></i></td>
+                            <td class="completed-who">Chris Dance</td>
+                            <td class="completed-copies">
+                              <span>2 copies</span>
+                            </td>
+                            <td class="completed-pages">
+                              <span>289 pages</span>
+                            </td>
+                            <td class="completed-location-device">
+                              <span>Library</span> |
+                              <span>HP Laser 5690M</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="completed-when">1 min ago</td>
+                            <td class="completed-status"><i class="circle icon teal"></i></td>
+                            <td class="completed-who">Chris Dance</td>
+                            <td class="completed-copies">
+                              <span>2 copies</span>
+                            </td>
+                            <td class="completed-pages">
+                              <span>289 pages</span>
+                            </td>
+                            <td class="completed-location-device">
+                              <span>Library</span> |
+                              <span>HP Laser 5690M</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="completed-when">1 min ago</td>
+                            <td class="completed-status"><i class="circle icon teal"></i></td>
+                            <td class="completed-who">Chris Dance</td>
+                            <td class="completed-copies">
+                              <span>2 copies</span>
+                            </td>
+                            <td class="completed-pages">
+                              <span>289 pages</span>
+                            </td>
+                            <td class="completed-location-device">
+                              <span>Library</span> |
+                              <span>HP Laser 5690M</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="completed-when">1 min ago</td>
+                            <td class="completed-status"><i class="circle icon teal"></i></td>
+                            <td class="completed-who">Chris Dance</td>
+                            <td class="completed-copies">
+                              <span>2 copies</span>
+                            </td>
+                            <td class="completed-pages">
+                              <span>289 pages</span>
+                            </td>
+                            <td class="completed-location-device">
+                              <span>Library</span> |
+                              <span>HP Laser 5690M</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="completed-when">1 min ago</td>
+                            <td class="completed-status"><i class="circle icon teal"></i></td>
+                            <td class="completed-who">Chris Dance</td>
+                            <td class="completed-copies">
+                              <span>2 copies</span>
+                            </td>
+                            <td class="completed-pages">
+                              <span>289 pages</span>
+                            </td>
+                            <td class="completed-location-device">
+                              <span>Library</span> |
+                              <span>HP Laser 5690M</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="completed-when">1 min ago</td>
+                            <td class="completed-status"><i class="circle icon teal"></i></td>
+                            <td class="completed-who">Chris Dance</td>
+                            <td class="completed-copies">
+                              <span>2 copies</span>
+                            </td>
+                            <td class="completed-pages">
+                              <span>289 pages</span>
+                            </td>
+                            <td class="completed-location-device">
+                              <span>Library</span> |
+                              <span>HP Laser 5690M</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="completed-when">1 min ago</td>
+                            <td class="completed-status"><i class="circle icon teal"></i></td>
+                            <td class="completed-who">Chris Dance</td>
+                            <td class="completed-copies">
+                              <span>2 copies</span>
+                            </td>
+                            <td class="completed-pages">
+                              <span>289 pages</span>
+                            </td>
+                            <td class="completed-location-device">
+                              <span>Library</span> |
+                              <span>HP Laser 5690M</span>
+                            </td>
+                          </tr>
+        
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+        
+                </div>
+              </div>
+        
+            </div>
+          </div>
+        
+
+        
+      </div>
+    </div><!-- Content row -->
+  </div><!-- Conatiner end -->
+</section><!-- Main container end -->
+{% endblock %}
+<!-- custom js -->
+{% block js %}
+<script src="{% static 'plugins/jquery-validate/jquery.validate.min.js' %}" defer></script>
+<script src="{% static 'plugins/jquery-validate/additional-methods.min.js' %}" defer></script>
+<script src="{% static 'js/semantic.js' %}" defer></script>
+<script src="{% static 'js/d3.js' %}" defer></script>
+<script src="{% static 'js/c3.js' %}" defer></script>
+
+<script>
+$(document).ready(function(){
+    var chart = c3.generate({
+  bindto: d3.select('.real-time-printing'),
+  color: {
+    pattern: ['#6dc8bf', '#b8db9c', '#2abb9d', '#0b7677', '#59bd7e']
+  },
+  grid: {
+      y: {
+        show: true
+      }
+  },
+  legend: {
+    show: false
+  },
+    data: {
+        columns: [
+            ['data1', 30, 200, 200, 400, 150, 250],
+            ['data2', 130, 100, 100, 200, 150, 50],
+            ['data3', 230, 200, 200, 300, 250, 250]
+        ],
+        type: 'bar'
+    },
+    bar: {
+        width: {
+            ratio: 0.5 // this makes bar width 50% of length between ticks
+        }
+        // or
+        //width: 10 // this makes bar width 100px
+    }
+});    
+$( "#myform" ).validate({
+ ignore: [],
+  rules: {
+    mobile_number: {
+      required: true,
+      digits: true,
+      minlength: 10,
+      maxlength: 10,
+    },
+    password: {
+      required: true,
+      minlength: 5,
+      maxlength: 30,
+    },
+  }
+});
+});
+</script>
+{% endblock %}
+<!-- custom js end-->
